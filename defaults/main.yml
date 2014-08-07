@@ -1,0 +1,8 @@
+---
+deploy_logrotate:
+  - name: *.log
+    period: daily
+    amount: 5
+
+deploy_logrotate_defaults:
+  conf_dir: /etc/logrotate.d

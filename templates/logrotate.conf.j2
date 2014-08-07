@@ -1,0 +1,47 @@
+{% for log_file in deploy_logrotate %}
+
+{{ deploy_logs_dir }}/{{ log_file.name }} {
+  {{ log_file.period | default('daily') }}
+  rotate {{ log_file.amount | default('5') }}
+
+  dateext
+  compress
+  delaycompress
+
+  missingok
+  notifempty
+
+{% if ((log_file.postrotate is defined) or
+       (log_file.prerotate is defined) or
+       (log_file.firstaction is defined) or
+       (log_file.lastaction is defined)) and
+         (log_file.sharedscripts is defined and log_file.sharedscripts) %}
+  sharedscripts
+{% endif %}
+{% if log_file.postrotate is defined %}
+  postrotate
+    {{ log_file.postrotate }}
+  endscript
+{% endif %}
+{% if log_file.prerotate is defined %}
+  prerotate
+    {{ log_file.prerotate }}
+  endscript
+{% endif %}
+{% if log_file.firstaction is defined %}
+  firstaction
+    {{ log_file.firstaction }}
+  endscript
+{% endif %}
+{% if log_file.lastaction is defined %}
+  lastaction
+    {{ log_file.lastaction }}
+  endscript
+{% endif %}
+
+{% if log_file.truncate is defined and log_file.truncate %}
+  copytruncate
+{% endif %}
+}
+
+{% endfor %}
