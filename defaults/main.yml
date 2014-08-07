@@ -1,6 +1,6 @@
 ---
 deploy_logrotate:
-  - name: *.log
+  - name: '*.log'
     period: daily
     amount: 5
 
