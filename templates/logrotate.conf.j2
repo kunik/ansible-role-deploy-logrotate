@@ -1,6 +1,6 @@
 {% for log_file in deploy_logrotate %}
 
-{{ deploy_logs_dir }}/{{ log_file.name }} {
+{{ log_file.logs_dir | default(deploy_logs_dir) }}/{{ log_file.name }} {
   {{ log_file.period | default('daily') }}
   rotate {{ log_file.amount | default('5') }}
 
