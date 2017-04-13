@@ -10,7 +10,9 @@
 
   missingok
   notifempty
-
+{% if log_file.su is defined %}
+  su {{ log_file.su }}
+{% endif %}
 {% if ((log_file.postrotate is defined) or
        (log_file.prerotate is defined) or
        (log_file.firstaction is defined) or
