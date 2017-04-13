@@ -1,6 +1,6 @@
 ---
 - name: generate logrotate conf for {{ deploy_application_name }}
-  sudo: true
+  become: yes
   template: >
     src=logrotate.conf.j2
     dest={{ deploy_logrotate_defaults.conf_dir }}/{{ deploy_application_name }}.conf
